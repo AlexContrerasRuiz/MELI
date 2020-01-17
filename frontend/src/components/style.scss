@@ -1,0 +1,43 @@
+// Resets
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+// Global Vars
+
+:global :root {
+  // Colors
+  --blue: #3483fa;
+  --darkg: #333;
+  --darkw: #eee;
+  --lightg: #999;
+  --midg: #666;
+  --yellow: #ffe600;
+  --yellowMELI: #fff159;
+  --grayMELI: #ebebeb;
+
+  // Margin & Paddings
+
+  --mar: 16px;
+  --pad: 32px;
+
+  // Font Sizes
+
+  --ultraSM: 12px;
+  --superSM: 14px;
+  --SM: 16px;
+  --medium: 18px;
+  --LG: 24px;
+  --superLG: 28px;
+  --ultraLG: 46px;
+
+  // MELI SIZE
+  --MELI16: 16px;
+}
+
+// General
+body{
+  background-color: var(--grayMELI);
+}
