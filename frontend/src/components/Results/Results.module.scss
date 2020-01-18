@@ -11,6 +11,7 @@
   position: relative;
   min-height: 210px;
   display: flex;
+  cursor: pointer;
 
   &::after {
     content: '';

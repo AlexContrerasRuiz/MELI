@@ -1,0 +1,82 @@
+.Product {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.Product_container {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+}
+
+.Product_detail {
+  grid-column: 1 / 8;
+  display: flex;
+  flex-direction: column;
+}
+
+.Product_img {
+  width: 680px;
+  height: 680px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Product_desc {
+  width: 100%;
+  padding-left: var(--pad);
+}
+
+.Product_descTitle {
+  margin-top: var(--mar);
+  margin-bottom: var(--pad);
+  font-size: var(--superLG);
+  font-family: var(--MELIM);
+}
+.Product_descText {
+  margin-bottom: var(--pad);
+  font-size: var(--SM);
+  font-family: var(--MELIM);
+  width: 95%;
+}
+
+// ASIDE
+
+.Product_aside {
+  grid-column: 8 / 11;
+  height: 300px;
+}
+
+.data {
+  margin-top: var(--pad);
+  margin-bottom: var(--mar);
+  font-size: var(--superSM);
+  font-family: var(--MELIL);
+}
+
+.name {
+  font-size: var(--LG);
+  font-family: var(--MELIB);
+  max-width: 70%;
+}
+
+.price {
+  margin: var(--pad) 0;
+  font-size: var(--ultraLG);
+  font-family: var(--MELIM);
+  line-height: 35px;
+}
+
+button {
+  width: calc(100% - var(--pad));
+  padding: 10px 0;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  background-color: var(--blue);
+  color: white;
+  cursor: pointer;
+  font-family: var(--MELIM);
+  font-size: var(--medium);
+}
