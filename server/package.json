@@ -1,0 +1,19 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "REST api para Ejercicio MELI",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Nodejs",
+    "MELI"
+  ],
+  "author": "Alex Contreras",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.1",
+    "express": "^4.17.1"
+  }
+}
