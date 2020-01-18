@@ -4,15 +4,15 @@
   background-color: var(--yellowMELI);
   display: flex;
   justify-content: center;
-  box-shadow: 0 1px 0 0 rgba(0,0,0,.1);
+  box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.1);
 }
 
 .bar {
   height: 100%;
-  width: 1200px;
+  width: 100%;
+  max-width: 1200px;
   display: flex;
   align-items: center;
-  
 }
 
 .logo {
@@ -20,17 +20,19 @@
   width: 44px;
 }
 
-form {
+.searchBar {
+  display: flex;
+  width: 100%;
+  height: 90%;
+  margin-left: 10px;
+  flex-direction: column;
   position: relative;
-  height: 100%;
+  justify-content: center;
 }
 
 .search {
-  position: absolute;
-  top: 8px;
-  left: 10px;
   height: 39px;
-  width: 600px;
+  width: inherit;
   padding: 7px 60px 9px 15px;
   border-radius: 2px;
   background-color: #fff;
@@ -41,20 +43,86 @@ form {
   color: var(--darkg);
   font-size: var(--MELI16);
   line-height: 23px;
-  z-index: 100;
+  font-family: var(--MELIL);
 
   &::placeholder {
     color: var(--lightg);
   }
 }
+
 .suggestions {
   position: absolute;
-  border-radius: 2px;   
-  top: 47px;
-  left: 10px;
-  height: 300px;
-  width: 600px;
+  top: 44px;
+  border-radius: 2px;
+  width: inherit;
   background-color: white;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
-  border: 0 rgba(0, 0, 0, 0.2);     
+  border: 0 rgba(0, 0, 0, 0.2);
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  visibility: hidden;
+}
+
+.suggestions_el {
+  display: flex;
+  padding: 10px;
+
+  &:nth-child(1) {
+    margin-top: 10px;
+  }
+  &:hover {
+    background-color: var(--blue);
+    color: white;
+    cursor: pointer;
+
+    .recents {
+      path {
+        fill: white;
+      }
+    }
+  }
+}
+
+.button {
+  position: absolute;
+  top: 5;
+  right: 0;
+  height: 39px;
+  width: 46px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.button_img {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  &::before {
+    content: '';
+    display: block;
+    height: 26px;
+    border-left: 1px solid #e6e6e6;
+    position: absolute;
+    top: -5.5px;
+    left: 0;
+  }
+}
+
+.button_img_svg {
+  width: 15px;
+  g {
+    fill: var(--midg);
+  }
+}
+
+.recents {
+  width: 20px;
+  height: 20px;
+}
+
+.item {
+  margin-left: 10px;
+  font-family: sans-serif;
+  line-height: 21px;
 }

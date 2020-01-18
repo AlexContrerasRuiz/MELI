@@ -1,0 +1,37 @@
+.Breadcrumb {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.Breadcrumb_container {
+  width: 100%;
+  max-width: 1200px;
+  padding: var(--mar) 0;
+  font-size: var(--superSM);
+}
+
+.Breadcrumb_list {
+  list-style: none;
+  display: flex;
+  align-items: center;
+}
+.Breadcrumb_el {
+  margin: 0 5px;
+  cursor: pointer;
+  color: var(--midg);
+  font-family: var(--MELIL);
+}
+
+.Breadcrumb_chevron {
+  cursor: default;
+  color: var(--midg);
+  display: flex;
+  align-items: center;
+  &::after {
+    font-family: var(--ICONS);
+    content: '\e902';
+    font-size: 11px;
+    transform: translateY(1px);
+  }
+}

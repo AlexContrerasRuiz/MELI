@@ -21,7 +21,7 @@ module.exports = {
           }
         }
       },
-      {
+      { // CSS / SASS & Css.module Support
         test: /\.scss$/,
         use: [
           'style-loader',
@@ -34,7 +34,7 @@ module.exports = {
           'sass-loader'
         ]
       },
-      {
+      { // IMG Support
         test: /\.(png|jpg|gif)$/,
         use: [
           {
@@ -42,7 +42,19 @@ module.exports = {
           }
         ]
       },
-      {
+      { // Font Support
+        test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'fonts/'
+            }
+          }
+        ]
+      },
+      { // SVG Support
         test: /\.svg$/,
         loader: 'svg-inline-loader'
       }

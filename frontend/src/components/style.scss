@@ -5,6 +5,26 @@
   box-sizing: border-box;
 }
 
+@font-face {
+  font-family: 'Meli L';
+  src: url('../assets/fonts/proximanova-light.woff2') format("woff"),
+}
+
+@font-face {
+  font-family: 'Meli M';
+  src: url('../assets/fonts/proxima-nova-400.woff2') format("woff"),
+}
+
+@font-face {
+  font-family: 'Meli B';
+  src: url('../assets/fonts/proxima-nova-600.woff2') format("woff"),
+}
+
+@font-face {
+  font-family: 'Icons';
+  src: url('../assets/fonts/search-icons-v34.woff2') format("woff"),
+}
+
 // Global Vars
 
 :global :root {
@@ -23,6 +43,13 @@
   --mar: 16px;
   --pad: 32px;
 
+  // FontFamily
+
+  --MELIL: 'Meli L';
+  --MELIM: 'Meli M';
+  --MELIB: 'Meli B';
+  --ICONS: 'Icons';
+
   // Font Sizes
 
   --ultraSM: 12px;
@@ -38,6 +65,13 @@
 }
 
 // General
-body{
+body {
   background-color: var(--grayMELI);
+}
+
+:global .WhiteBoard {
+  width: 100%;
+  max-width: 1200px;
+  background-color: white;
+  border-radius: 5px;
 }
