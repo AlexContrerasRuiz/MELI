@@ -1,42 +1,44 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
+import { useHistory, withRouter } from 'react-router-dom';
 
 // styles
 import styles from './Results.module.scss';
 
-export class Results extends Component {
+// Components
+import Item from './Item/Item';
 
-  changeRouteHandler = () => {
-    this.props.history.push('/items/ass')
-  };
+// Dependencies
+import axios from 'axios';
 
-  render() {
-    return (
-      <div className={styles.Results_container}>
+const API = 'http://localhost:666/api';
 
-        <div className="WhiteBoard">
-          <ol className={styles.Results_stackResults}>
-            <li className={styles.Results_item} onClick={this.changeRouteHandler}>
-              <div className={styles.Results_item_img}>
-                <div className={styles.tempIMG}>a</div>
-              </div>
-              <div className={styles.Results_item_desc}>
-                <div className={styles.Results_item_text}>
-                  <p className={styles.Results_item_textPrice}>$.1980</p>
+function Results(props) {
+  useEffect(() => {
+    axios
+      .get(`${API}/search`, {
+        params: {
+          query: `${location.search.split('=')[1]}`
+        }
+      })
+      .then(response => {
+        props.sendItems(response.data.items);
+      })
+      .catch();
+  }, [props.data, location.search]);
 
-                  <p className={styles.Results_item_textDesc}>
-                    Apple Ipod Touch 5g 16gb Negro Igual a Nuevo Completo Unico
-                  </p>
-                </div>
-                <div className={styles.Results_item_place}>
-                  <span>Capital Federal</span>
-                </div>
-              </div>
-            </li>
-          </ol>
-        </div>
+  return (
+    <div className={styles.Results_container}>
+      <div className="WhiteBoard">
+        <ol className={styles.Results_stackResults}>
+          {props.items
+            ? props.items.map((item, i) => {
+                return <Item key={i} data={item} />;
+              })
+            : null}
+        </ol>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
-export default Results;
+export default withRouter(Results);

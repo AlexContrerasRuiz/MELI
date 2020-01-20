@@ -9,8 +9,9 @@ const CONFIG = require('./config');
 
 // Format Fuctions
 const FormatSearch = require('./format/formatFunctions/formatSearch');
-const FD = require('./format/formatFunctions/formatDesc');
-const FI = require('./format/formatFunctions/formatItem');
+const FormatItem = require('./format/formatFunctions/formatItem');
+const FormatDesc = require('./format/formatFunctions/formatDesc');
+const BASE = require('./format/baseItem');
 
 // Midd Functions
 app.use(cors());
@@ -19,31 +20,49 @@ app.use(bodyParser.json());
 
 // GET METHODS
 // Search
-app.get('/api/items', function(req, res) {
+app.get('/api/search/', function(req, res) {
+  console.log('====================================');
+  console.log(req.query);
+  console.log('====================================');
   axios
-    .get(`${CONFIG.baseURL}sites/MLA/search?q=iphone&limit=4`)
+    .get(`${CONFIG.baseURL}sites/MLA/search?q=${req.query.query}&limit=4`)
     .then(response => {
+      // Formatea y envia la respuesta
       res.send(FormatSearch(response.data));
     });
 });
 
 // Item Detail
-app.get('/api/items/:id', function(req, res) {
-  axios.get(`${CONFIG.baseURL}items?ids=${req.params.id}`).then(response => {
-    res.send(response.data);
-//     res.send(FI(response.data));
-  });
+app.get('/api/items/:id', async function(req, res) {
+  // Se clona el objeto base sin ser puntero.
+  let toFormat = JSON.parse(JSON.stringify(BASE));
+
+  try {
+    // Se obtiene el item y se formatea el objeto
+    await axios
+      .get(`${CONFIG.baseURL}items?ids=${req.params.id}`)
+      .then(response => {
+        if (res.statusCode === 200) {
+          FormatItem(toFormat, response.data);
+        }
+      });
+
+    // Se espèra el item y se obtiene la descripcion y se añade al objeto.
+    await axios
+      .get(`${CONFIG.baseURL}items?ids=${req.params.id}/description`)
+      .then(response => {
+        if (res.statusCode === 200) {
+          FormatDesc(toFormat, response.data);
+        }
+      });
+  } catch (error) {}
+
+  // Se espera la finalizacion de las llamadas y formateo y se envia.
+  res.send(toFormat);
 });
 
-//Item Description
-app.get('/api/items/:id/description', function(req, res) {
-  axios
-    .get(`${CONFIG.baseURL}items?ids=${req.params.id}/description`)
-    .then(response => {
-      if (res.statusCode === 200) {
-        res.send(FD(response.data));
-      }
-    });
+app.get('/api/hi', async function(req, res) {
+  res.send({ sms: 'hi' });
 });
 
 //Run Server
