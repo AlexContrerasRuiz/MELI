@@ -33,8 +33,16 @@ const FormatSearch = response => {
   let categories = [];
 
   // Se comprueba si existen categorias y se pushean
-  if (response.filters[0]) {
+
+  if (response.filters.length !== 0) {
     response.filters[0].values[0].path_from_root.map(cat => {
+      toFormat.categories.push(cat);
+    });
+  }else {
+    response.available_filters[0].values.map((cat, i) => {
+      if(i > 3) {
+        return;
+      }
       toFormat.categories.push(cat);
     });
   }

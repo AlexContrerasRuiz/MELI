@@ -21,7 +21,14 @@ function Results(props) {
         }
       })
       .then(response => {
-        props.sendItems(response.data.items);
+        props.sendValueURL(location.search.split('=')[1].replace('%20', ' '))
+        console.log(response.data);
+        let mergeObj = {
+          searchItems: response.data.items,
+          categories: response.data.categories
+        }
+        
+        props.sendItems(mergeObj);
       })
       .catch();
   }, [props.data, location.search]);
@@ -32,7 +39,7 @@ function Results(props) {
         <ol className={styles.Results_stackResults}>
           {props.items
             ? props.items.map((item, i) => {
-                return <Item key={i} data={item} />;
+                return <Item key={i} data={item}  goTo={props.goTo}/>;
               })
             : null}
         </ol>

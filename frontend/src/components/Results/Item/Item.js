@@ -8,7 +8,7 @@ export default function Item(props) {
     <li
       className={styles.Results_item}
       onClick={() => {
-        props.changeRouteHandler(props.data.id);
+        props.goTo(props.data.id);
       }}
     >
       <div className={styles.Results_item_img}>

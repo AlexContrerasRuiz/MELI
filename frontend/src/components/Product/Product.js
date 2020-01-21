@@ -1,58 +1,63 @@
-import React, { Component } from 'react';
+import React, { useEffect } from "react";
+import axios from "axios";
 
 // Styles
-import styles from './Product.module.scss';
+import styles from "./Product.module.scss";
+import { withRouter } from "react-router-dom";
 
-export class Product extends Component {
-  componentWillMount() {
-    console.log('====================================');
-    console.log(this.props);
-    console.log('====================================');
-  }
+// API
 
-  render() {
-    return (
-      <div className={styles.Product}>
-        <div className="WhiteBoard ">
-          <div className={styles.Product_container}>
-            <div className={styles.Product_detail}>
-              <div className={styles.Product_img}>
-                <img src="http://mla-s1-p.mlstatic.com/899345-MLA31003463574_062019-O.jpg"></img>
-              </div>
-              <div className={styles.Product_desc}>
-                <p className={styles.Product_descTitle}>
-                  Descripcion del producto
-                </p>
-                <p className={styles.Product_descText}>
-                  {' '}
-                  Rendimiento:\nCon el procesador octa-core de 1,8 GHz y 3 GB de
-                  RAM ejecutá tus tareas y disfrutá de tus videos y juegos con
-                  más agilidad, además de tener 32 GB de almacenamiento para tus
-                  fotos, música y videos.\n\nPantalla Max Vision de 5.7\\\" Full
-                  HD+:\nNuevo diseño 3D con pantalla extendida, perfecto para
-                  tus manos y tus ojos: tus fotos, videos y juegos favoritos con
-                  mayor definición.\n\nCámara inteligente:\nDivertite con la
-                  cámara dual trasera, sacá selfies sorprendentes, incluso en la
-                  oscuridad, gracias al flash LED y mucho más: reconocimiento de
-                  lugares y objetos con información en segundos. \n\nBatería de
-                  3000 mAh + Carga TurboPower:\nTe garantiza hasta 6 horas de
-                  uso en sólo 15 minutos de carga.\n\nDiseño en metal y cristal
-                  3D:\nPosee un acabado trasero de vidrio 3D con un efecto
-                  visual innovador que lo hace aún más elegante.
-                </p>
-              </div>
+const API = "http://localhost:666/api";
+
+function Product(props) {
+  const { item } = props;
+  useEffect(() => {
+    props.resetSearch('')
+    axios
+      .get(`${API}/items/${props.match.params.id}`)
+      .then(response => {
+        props.sendItem(response.data.item);
+      })
+      .catch();
+  }, []);
+
+  return item ? (
+    <div className={styles.Product}>
+      <div className="WhiteBoard ">
+        <div className={styles.Product_container}>
+          <div className={styles.Product_detail}>
+            <div className={styles.Product_img}>
+              <img src={item.picture}></img>
             </div>
-            <div className={styles.Product_aside}>
-              <p className={styles.data}>Condition - Sold_quantity Vendidos</p>
-              <p className={styles.name}>Motorola G6 32 Gb Negro 3 Gb Ram </p>
-              <p className={styles.price}>$ 20096.51</p>
-              <button>COMPRAR</button>
+            <div className={styles.Product_desc}>
+              <p className={styles.Product_descTitle}>
+                Descripcion del producto
+              </p>
+              <p
+                className={styles.Product_descText}
+                dangerouslySetInnerHTML={{ __html: item.description }}
+              ></p>
             </div>
+          </div>
+          <div className={styles.Product_aside}>
+            <p className={styles.data}>
+              {item.condition === "new" ? "Nuevo" : "Usado"} -
+              {item.sold_quantity} Vendidos
+            </p>
+            <p className={styles.name}> {item.title} </p>
+            {item.price ?
+            <p className={styles.price}>
+              {item.price.currency === 'ARS' ? '$' : 'U$S'}
+              {item.price.amount} .
+              {item.price.decimals || '00'}
+            </p>
+            : null }
+            <button>COMPRAR</button>
           </div>
         </div>
       </div>
-    );
-  }
+    </div>
+  ) : null;
 }
 
-export default Product;
+export default withRouter(Product);

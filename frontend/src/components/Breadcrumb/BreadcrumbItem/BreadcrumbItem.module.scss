@@ -1,0 +1,28 @@
+.Breadcrumb_el_container{
+  display: flex;
+}
+
+.Breadcrumb_el {
+  margin: 0 5px;
+  cursor: pointer;
+  color: var(--midg);
+  font-family: var(--MELIL);
+}
+
+.Breadcrumb_chevron {
+  cursor: default;
+  color: var(--midg);
+  display: flex;
+  align-items: center;
+  margin-left: 5px;
+  &::after {
+    font-family: var(--ICONS);
+    content: '\e902';
+    font-size: 11px;
+    transform: translateY(1px);
+  }
+  
+  .hide {
+    visibility: hidden;
+  }
+}
