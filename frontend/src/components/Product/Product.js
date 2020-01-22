@@ -1,30 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useEffect } from "react";
+import axios from "axios";
 
 // Styles
-import styles from './Product.module.scss';
-import { withRouter } from 'react-router-dom';
+import styles from "./Product.module.scss";
+import { withRouter } from "react-router-dom";
 
 // API
 
-const API = 'http://localhost:666/api';
+const API = "http://localhost:666/api";
 
-
-const Product = React.memo(props => {
-  const [loading, changeLoading] = useState(null);
+function Product(props) {
   const { item } = props;
-
-  const getParams = () => {
-    const params = location.pathname.split('/')[2];
-    return params
-  };
-
-  const termino = () =>  changeLoading(true);
-
   useEffect(() => {
-    props.resetSearch('');
+    props.resetSearch('')
     axios
-      .get(`${API}/items/${getParams()}`)
+      .get(`${API}/items/${props.match.params.id}`)
       .then(response => {
         props.sendItem(response.data.item);
       })
@@ -33,12 +23,11 @@ const Product = React.memo(props => {
 
   return item ? (
     <div className={styles.Product}>
-      {console.log('[Product] : Rendered')}
-      <div style={{opacity: loading ? "1" : "0"}} className="WhiteBoard ">
+      <div className="WhiteBoard ">
         <div className={styles.Product_container}>
           <div className={styles.Product_detail}>
             <div className={styles.Product_img}>
-              <img src={item.picture} onLoad={termino}></img>
+              <img src={item.picture}></img>
             </div>
             <div className={styles.Product_desc}>
               <p className={styles.Product_descTitle}>
@@ -52,22 +41,23 @@ const Product = React.memo(props => {
           </div>
           <div className={styles.Product_aside}>
             <p className={styles.data}>
-              {item.condition === 'new' ? 'Nuevo' : 'Usado'} -
+              {item.condition === "new" ? "Nuevo" : "Usado"} -
               {item.sold_quantity} Vendidos
             </p>
             <p className={styles.name}> {item.title} </p>
-            {item.price ? (
-              <p className={styles.price}>
-                {item.price.currency === 'ARS' ? '$' : 'U$S'}
-                {item.price.amount} .{item.price.decimals || '00'}
-              </p>
-            ) : null}
+            {item.price ?
+            <p className={styles.price}>
+              {item.price.currency === 'ARS' ? '$' : 'U$S'}
+              {item.price.amount} .
+              {item.price.decimals || '00'}
+            </p>
+            : null }
             <button>COMPRAR</button>
           </div>
         </div>
       </div>
     </div>
-  ) : <h1> CARGANDO </h1>;
-});
+  ) : null;
+}
 
-export default Product;
+export default withRouter(Product);
