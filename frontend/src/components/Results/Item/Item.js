@@ -3,7 +3,7 @@ import React from 'react';
 // styles
 import styles from './Item.module.scss';
 
-export default function Item(props) {
+ const Item = React.memo((props) => {
   return (
     <li
       className={styles.Results_item}
@@ -11,6 +11,7 @@ export default function Item(props) {
         props.goTo(props.data.id);
       }}
     >
+      {console.log('[Result Item] : Rendered')}
       <div className={styles.Results_item_img}>
         <img src={props.data.picture}/>
       </div>
@@ -29,4 +30,6 @@ export default function Item(props) {
       </div>
     </li>
   );
-}
+})
+
+export default Item;

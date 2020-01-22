@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import { useHistory, withRouter } from 'react-router-dom';
 
 // styles
@@ -12,8 +12,11 @@ import axios from 'axios';
 
 const API = 'http://localhost:666/api';
 
-function Results(props) {
+const Results = React.memo( (props) => {
+  const [loading, setLoading] = useState(null)
+
   useEffect(() => {
+    props.sendValueURL(location.search.split('=')[1].replace('%20', ' '));
     axios
       .get(`${API}/search`, {
         params: {
@@ -21,31 +24,30 @@ function Results(props) {
         }
       })
       .then(response => {
-        props.sendValueURL(location.search.split('=')[1].replace('%20', ' '))
-        console.log(response.data);
         let mergeObj = {
           searchItems: response.data.items,
           categories: response.data.categories
-        }
-        
+        };
         props.sendItems(mergeObj);
+        setLoading(true)
       })
       .catch();
   }, [props.data, location.search]);
 
   return (
-    <div className={styles.Results_container}>
+    <div style={{opacity: loading ? "1" : "0"}} className={styles.Results_container}>
+      {console.log('[Results] : Rendered')}
       <div className="WhiteBoard">
         <ol className={styles.Results_stackResults}>
           {props.items
             ? props.items.map((item, i) => {
-                return <Item key={i} data={item}  goTo={props.goTo}/>;
+                return <Item key={i} data={item} goTo={props.goTo} />;
               })
             : null}
         </ol>
       </div>
     </div>
   );
-}
+})
 
-export default withRouter(Results);
+export default Results;
