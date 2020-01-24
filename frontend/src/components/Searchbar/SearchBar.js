@@ -14,16 +14,19 @@ import recents from '../../assets/recents.svg';
 // Dependencies
 
 function SearchBar(props) {
-  
-  const enterKeyHandler = e => {
-    if (e.key === 'Enter') {
-      props.goTo(e);
+
+  const goToHandler = e => {
+    if (e.type === 'keypress') {
+      if (e.key === 'Enter') {
+        props.goTo(e.target.value);
+      }
+    }
+    if (e.type === 'click') {
+      props.goTo(props.value);
     }
   };
 
-  const buttonClickedHandler = e => {
-    props.goTo(e);
-  };
+
 
   return (
     <header className={styles.header}>
@@ -35,9 +38,9 @@ function SearchBar(props) {
             placeholder="Nunca dejes de buscar."
             value={props.value}
             onChange={props.getValue}
-            onKeyPressCapture={enterKeyHandler}
+            onKeyPressCapture={goToHandler}
           ></input>
-          <button className={styles.button} onClick={buttonClickedHandler}>
+          <button className={styles.button} onClick={goToHandler}>
             <div className={styles.button_img}>
               <SVG className={styles.button_img_svg} src={lupa} />
             </div>
