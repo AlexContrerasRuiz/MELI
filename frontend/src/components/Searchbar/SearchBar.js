@@ -1,7 +1,7 @@
 import React, { Component, useEffect } from 'react';
 import queryString from 'query-string';
 import SVG from 'react-inlinesvg';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 
 // Style
 import styles from './SearchBar.module.scss';
@@ -14,24 +14,18 @@ import recents from '../../assets/recents.svg';
 // Dependencies
 
 function SearchBar(props) {
-
   const goToHandler = e => {
-    if (e.type === 'keypress') {
-      if (e.key === 'Enter') {
-        props.goTo(e.target.value);
-      }
-    }
-    if (e.type === 'click') {
+    if ((e.type === 'keypress' && e.key === 'Enter') || e.type === 'click') {
       props.goTo(props.value);
     }
   };
 
-
-
   return (
     <header className={styles.header}>
       <div className={styles.bar}>
-        <SVG className={styles.logo} src={logo} />
+        <Link to="/"> 
+          <SVG className={styles.logo} src={logo} />
+        </Link>
         <div className={styles.searchBar}>
           <input
             className={styles.search}

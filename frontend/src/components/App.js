@@ -13,7 +13,6 @@ import './style.scss';
 // Components
 
 import SearchBar from './Searchbar/SearchBar';
-import Breadcrumb from './Breadcrumb/Breadcrumb';
 import Results from './Results/Results';
 import Product from './Product/Product';
 import Home from './Home/Home';
@@ -27,16 +26,14 @@ class App extends Component {
     searchValue: '',
     searchedValue: '',
     searchItems: null,
-    selectedItem: {},
-    categories: [],
+    selectedItem: null,
+    categories: []
   };
 
   searchValueHandler = ({ target }) =>
     this.setState({ searchValue: target.value });
 
   searchValueFromQuery = value => this.setState({ searchValue: value });
-
-  //getSearchedItemsHandler = mergeObj => this.setState(mergeObj);
 
   getSelectedItemHandler = item => this.setState({ selectedItem: item });
 
@@ -64,13 +61,13 @@ class App extends Component {
             searchValue: query.replace('%20', ' ')
           },
           () => {
-            if(this.props.history.location.search.split('=')[1] === query){
+            if (this.props.history.location.search.split('=')[1] === query) {
               return;
             }
-              this.props.history.push({
-                pathname: `/items`,
-                search: `search=${this.state.searchValue}`
-              });
+            this.props.history.push({
+              pathname: `/items`,
+              search: `search=${this.state.searchValue}`
+            });
           }
         );
       })
@@ -82,31 +79,35 @@ class App extends Component {
       axios
         .get(`${API}/items/${id}`)
         .then(response => {
-          this.setState({ selectedItem: response.data.item }, () => {
-            if(location.pathname.split('/')[2] === id){
-              return;
+          this.setState(
+            { selectedItem: response.data.item, searchValue: '' },
+            () => {
+              if (location.pathname.split('/')[2] === id) {
+                return;
+              }
+              this.props.history.push({
+                pathname: `/items/${id}`
+              });
             }
-            this.props.history.push({
-              pathname: `/items/${id}`
-            });
-          });
+          );
         })
         .catch(err => {});
     });
   };
 
-  toogleFromQuery = () => {
-    this.setState({ fromQuery: false });
-  };
+  resetStateHome = () => {
+    this.setState({searchValue: '', categories: []});
+  }
 
-  
   render() {
     const toContext = {
-      goTo: this.goToProductHandler
+      goTo: this.goToProductHandler,
+      categories: this.state.categories
     };
 
     return (
       <CtxProvider value={toContext}>
+        {/* {console.log(this.state)} */}
         <div className="App">
           <Route>
             <SearchBar
@@ -114,12 +115,10 @@ class App extends Component {
               getValue={this.searchValueHandler}
               goTo={this.goToResultHandler}
             />
-
-            {/* <Breadcrumb categories={this.state.categories} /> */}
             <main>
               <Switch>
                 <Route exact path="/">
-                  <Home />
+                  <Home reset={this.resetStateHome} />
                 </Route>
                 <Route exact path={`/items`}>
                   <Results
@@ -130,7 +129,6 @@ class App extends Component {
                 <Route exact path="/items/:id">
                   <Product
                     item={this.state.selectedItem}
-                    resetQuery={this.searchValueFromQuery}
                     searchFromQuery={this.goToProductHandler}
                   />
                 </Route>

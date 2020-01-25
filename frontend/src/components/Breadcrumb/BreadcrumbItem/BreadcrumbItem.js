@@ -10,7 +10,6 @@ function BreadcrumbItem(props) {
 
   return (
     <div className={styles.Breadcrumb_el_container}>
-      {console.log(idx, length)}
       <li className={styles.Breadcrumb_el}>{item.name}</li>
       <div
         className={noChevron ? styles.hide : styles.Breadcrumb_chevron}
