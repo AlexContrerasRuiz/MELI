@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { useHistory, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 // styles
 import styles from './Results.module.scss';
@@ -39,7 +39,7 @@ class Results extends Component {
     return (
      <>
       <Breadcrumb />
-      <div className={styles.Results_container}>
+      <section className={styles.Results_container}>
         <div className="WhiteBoard">
           <ol className={styles.Results_stackResults}>
             {this.props.items &&
@@ -48,7 +48,7 @@ class Results extends Component {
               })}
           </ol>
         </div>
-      </div>
+      </section>
     </>
     );
   }

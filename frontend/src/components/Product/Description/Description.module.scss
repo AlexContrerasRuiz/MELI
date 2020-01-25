@@ -1,0 +1,18 @@
+.Product {
+  width: 100%;
+  padding-left: var(--pad);
+}
+
+.Title {
+  margin-top: var(--mar);
+  margin-bottom: var(--pad);
+  font-size: var(--superLG);
+  font-family: var(--MELIM);
+}
+
+.Text {
+  margin-bottom: var(--pad);
+  font-size: var(--SM);
+  font-family: var(--MELIM);
+  width: 95%;
+}

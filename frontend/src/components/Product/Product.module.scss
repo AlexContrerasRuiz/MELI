@@ -23,23 +23,6 @@
   align-items: center;
 }
 
-.Product_desc {
-  width: 100%;
-  padding-left: var(--pad);
-}
-
-.Product_descTitle {
-  margin-top: var(--mar);
-  margin-bottom: var(--pad);
-  font-size: var(--superLG);
-  font-family: var(--MELIM);
-}
-.Product_descText {
-  margin-bottom: var(--pad);
-  font-size: var(--SM);
-  font-family: var(--MELIM);
-  width: 95%;
-}
 
 // ASIDE
 
@@ -61,22 +44,5 @@
   max-width: 70%;
 }
 
-.price {
-  margin: var(--pad) 0;
-  font-size: var(--ultraLG);
-  font-family: var(--MELIM);
-  line-height: 35px;
-}
 
-button {
-  width: calc(100% - var(--pad));
-  padding: 10px 0;
-  border-radius: 5px;
-  border: none;
-  outline: none;
-  background-color: var(--blue);
-  color: white;
-  cursor: pointer;
-  font-family: var(--MELIM);
-  font-size: var(--medium);
-}
+

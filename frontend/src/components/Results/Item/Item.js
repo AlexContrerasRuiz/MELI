@@ -5,14 +5,13 @@ import { CtxConsumer } from '../../../Context/Context';
 
 // styles
 import styles from './Item.module.scss';
+import Price from '../../../common/Price/Price';
 
-
-export default function Item({data}) {
+export default function Item({ data }) {
   return (
     <CtxConsumer>
       {Contexto => {
         return (
-       
           <li
             className={styles.Results_item}
             onClick={() => {
@@ -24,14 +23,12 @@ export default function Item({data}) {
             </div>
             <div className={styles.Results_item_desc}>
               <div className={styles.Results_item_text}>
-                <p className={styles.Results_item_textPrice}>
-                  {data.price.currency === 'ARS' ? '$' : 'U$S' || '00'}
-                  {data.price.amount}.{data.price.decimals || '00'}
-                </p>
+                <Price
+                  price={data.price}
+                  overrideClass={styles.Results_item_textPrice}
+                />
 
-                <p className={styles.Results_item_textDesc}>
-                  {data.title}
-                </p>
+                <p className={styles.Results_item_textDesc}>{data.title}</p>
               </div>
               <div className={styles.Results_item_place}>
                 <span>{data.address}</span>

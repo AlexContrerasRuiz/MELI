@@ -40,6 +40,7 @@
 }
 
 .Results_item_textPrice {
+  display: flex;
   margin-bottom: var(--pad);
   font-size: var(--LG);
   font-family: var(--MELIM);

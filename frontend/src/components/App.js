@@ -10,8 +10,10 @@ import {
 // Styles
 import './style.scss';
 
-// Components
+// Layout
+import Main from './Layouts/Main';
 
+// Components
 import SearchBar from './Searchbar/SearchBar';
 import Results from './Results/Results';
 import Product from './Product/Product';
@@ -96,8 +98,8 @@ class App extends Component {
   };
 
   resetStateHome = () => {
-    this.setState({searchValue: '', categories: []});
-  }
+    this.setState({ searchValue: '', categories: [] });
+  };
 
   render() {
     const toContext = {
@@ -115,25 +117,23 @@ class App extends Component {
               getValue={this.searchValueHandler}
               goTo={this.goToResultHandler}
             />
-            <main>
-              <Switch>
-                <Route exact path="/">
-                  <Home reset={this.resetStateHome} />
-                </Route>
-                <Route exact path={`/items`}>
-                  <Results
-                    items={this.state.searchItems}
-                    searchFromQuery={this.goToResultHandler}
-                  />
-                </Route>
-                <Route exact path="/items/:id">
-                  <Product
-                    item={this.state.selectedItem}
-                    searchFromQuery={this.goToProductHandler}
-                  />
-                </Route>
-              </Switch>
-            </main>
+            <Main>
+              <Route exact path="/">
+                <Home reset={this.resetStateHome} />
+              </Route>
+              <Route exact path={`/items`}>
+                <Results
+                  items={this.state.searchItems}
+                  searchFromQuery={this.goToResultHandler}
+                />
+              </Route>
+              <Route exact path="/items/:id">
+                <Product
+                  item={this.state.selectedItem}
+                  searchFromQuery={this.goToProductHandler}
+                />
+              </Route>
+            </Main>
           </Route>
         </div>
       </CtxProvider>
