@@ -37,6 +37,7 @@ app.get('/api/items/:id', async function(req, res) {
   // Se clona el objeto base sin ser puntero.
   let toFormat = JSON.parse(JSON.stringify(BASE));
 
+
   try {
     // Se obtiene el item y se formatea el objeto
     await axios
@@ -53,6 +54,14 @@ app.get('/api/items/:id', async function(req, res) {
       .then(response => {
         if (res.statusCode === 200) {
           FormatDesc(toFormat, response.data);
+        }
+      });
+
+    await axios
+      .get(`${CONFIG.baseURL}categories/${toFormat.item.category_id}`)
+      .then(response => {
+        if (res.statusCode === 200) {
+          toFormat.categories = response.data.path_from_root;
         }
       });
   } catch (error) {}

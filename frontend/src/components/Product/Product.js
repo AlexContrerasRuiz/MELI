@@ -23,7 +23,6 @@ class Product extends Component {
 
     // Para hacer auto-fetch
     if (this.props.item === null) {
-      console.log('run');
       this.props.searchFromQuery(location.pathname.split('/')[2]);
     }
   }

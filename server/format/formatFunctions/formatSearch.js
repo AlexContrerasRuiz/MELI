@@ -25,6 +25,7 @@ const FormatSearch = response => {
     tempItem.condition = item.condition;
     tempItem.free_shipping = item.shipping.free_shipping;
     tempItem.address = item.address.state_name;
+    tempItem.category_id = item.category_id;
 
     // Se pushea a los items del objeto enviar.
     toFormat.items.push(tempItem);

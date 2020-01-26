@@ -19,7 +19,6 @@ export class Price extends PureComponent {
 
     return (
       <div className={style}>
-        {console.log('Renderded')}
         <Currency type={currency} />
         &nbsp;
         <Amount amount={amount} />

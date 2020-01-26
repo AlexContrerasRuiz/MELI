@@ -15,6 +15,7 @@ export class Aside extends PureComponent {
       <div className={grid}>
         <p className={styles.data}>
           {item.condition === 'new' ? 'Nuevo' : 'Usado'} -
+          &nbsp; 
           {item.sold_quantity} Vendidos
         </p>
         <p className={styles.name}> {item.title} </p>

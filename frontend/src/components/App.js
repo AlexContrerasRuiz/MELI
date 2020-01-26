@@ -74,13 +74,13 @@ class App extends Component {
       .catch();
   };
 
-  goToProductHandler = id => {
+  goToProductHandler = (id) => {
     this.setState({ selectedItem: id }, () => {
       axios
         .get(`${API}/items/${id}`)
         .then(response => {
           this.setState(
-            { selectedItem: response.data.item, searchValue: '' },
+            { selectedItem: response.data.item, searchValue: '', categories: response.data.categories },
             () => {
               if (location.pathname.split('/')[2] === id) {
                 return;

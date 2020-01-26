@@ -7,20 +7,12 @@ export class Description extends PureComponent {
   render() {
     const description = this.props.description ? this.props.description : '';
 
-    // Se formatea la descripcion
-    let newText = description.split('\n').map(i => {
-      return (
-        <p key={Math.floor(Math.random() * 10000)} className={styles.Text}>
-          {i}
-        </p>
-      );
-    });
+    let newText = description.split('\n').join('<br>')
 
     return (
       <div className={styles.Product}>
-        {console.log('rendered')}
         <p className={styles.Title}>Descripcion del producto</p>
-        {newText}
+        <p className={styles.Text}  dangerouslySetInnerHTML={{ __html: newText }}></p>
       </div>
     );
   }

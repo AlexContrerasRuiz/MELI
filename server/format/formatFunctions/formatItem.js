@@ -10,6 +10,7 @@ const FormatItem = (BASE, response) => {
   BASE.item.condition = res.condition;
   BASE.item.free_shipping = res.shipping.free_methods ? res.shipping.free_methods[0].rule.free_shipping_flag : false ;
   BASE.item.sold_quantity = res.sold_quantity;
+  BASE.item.category_id = res.category_id;
 };
 
 module.exports = FormatItem;
