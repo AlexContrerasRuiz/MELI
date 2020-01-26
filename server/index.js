@@ -21,9 +21,7 @@ app.use(bodyParser.json());
 // GET METHODS
 // Search
 app.get('/api/search/', function(req, res) {
-  console.log('====================================');
-  console.log(req.query);
-  console.log('====================================');
+
   axios
     .get(`${CONFIG.baseURL}sites/MLA/search?q=${req.query.query}&limit=4`)
     .then(response => {
@@ -68,10 +66,6 @@ app.get('/api/items/:id', async function(req, res) {
 
   // Se espera la finalizacion de las llamadas y formateo y se envia.
   res.send(toFormat);
-});
-
-app.get('/api/hi', async function(req, res) {
-  res.send({ sms: 'hi' });
 });
 
 //Run Server

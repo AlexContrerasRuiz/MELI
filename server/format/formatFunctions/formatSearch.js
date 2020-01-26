@@ -4,10 +4,6 @@ const FormatSearch = response => {
   // Se clona el objeto base sin ser puntero.
   let toFormat = JSON.parse(JSON.stringify(BASE));
 
-  console.log('====================================');
-  console.log();
-  console.log('====================================');
-
   if (response.results.length === 0) {
     toFormat.items = [];
     return toFormat;
