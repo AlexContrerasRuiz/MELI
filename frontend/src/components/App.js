@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import {
-  BrowserRouter as Router,
-  Switch,
   Route,
   withRouter
 } from 'react-router-dom';
