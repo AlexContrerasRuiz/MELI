@@ -6,6 +6,7 @@ import styles from "./BreadcrumbItem.module.scss";
 function BreadcrumbItem(props) {
   const { item, idx, length } = props;
 
+  // Se añade flecha separadora.
   const noChevron = idx === length - 1;
 
   return (

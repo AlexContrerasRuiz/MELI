@@ -11,7 +11,7 @@ import {
 import './style.scss';
 
 // Layout
-import Main from './Layouts/Main';
+import Main from '../Layouts/Main';
 
 // Components
 import SearchBar from './Searchbar/SearchBar';
@@ -109,7 +109,6 @@ class App extends Component {
 
     return (
       <CtxProvider value={toContext}>
-        {/* {console.log(this.state)} */}
         <div className="App">
           <Route>
             <SearchBar

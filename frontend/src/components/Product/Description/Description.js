@@ -7,9 +7,10 @@ export class Description extends PureComponent {
   render() {
     const description = this.props.description ? this.props.description : '';
 
+    // Se formatea la descripcion
     let newText = description.split('\n').map(i => {
       return (
-        <p key={Math.floor(Math.random() * 10)} className={styles.Text}>
+        <p key={Math.floor(Math.random() * 10000)} className={styles.Text}>
           {i}
         </p>
       );

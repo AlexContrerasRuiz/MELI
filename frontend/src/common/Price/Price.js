@@ -11,6 +11,8 @@ import Decimals from './Decimals/Decimals';
 export class Price extends PureComponent {
   render() {
     const { currency, amount, decimals } = this.props.price;
+
+    // Se hace override de la clase default para reusar || se mantiene la default.
     const style = this.props.overrideClass
       ? this.props.overrideClass
       : styles.Price;

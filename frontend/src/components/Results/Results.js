@@ -15,23 +15,27 @@ class Results extends Component {
       prevProps.location.search !== this.props.location.search;
     const evitRenderFromWithRouter = prevProps.match !== this.props.match;
 
+    // Si los items son iguales no re-renderiza.
     if (diferentItems) {
-      console.log('Los Items son diferentes');
       return true;
     }
 
+    // Si viene de una url diferente (backwards).
     if (diferentLocation) {
-      console.log('Recargo de location');
       this.props.searchFromQuery();
       return true;
     }
 
+    // FIXME El withRouter esta generando Re-Renders no necesarios.
     if (evitRenderFromWithRouter) {
       return false;
     }
   }
 
   componentDidMount() {
+
+    // Si el componente hace auto fetch carga solo el contenido
+    //  Se penso guardar las busquedas en el sesionStorage o aplicar alguna estrategia de pre-fetch
     this.props.searchFromQuery();
   }
 

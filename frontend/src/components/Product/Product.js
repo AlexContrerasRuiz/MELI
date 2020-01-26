@@ -20,20 +20,20 @@ class Product extends Component {
   }
 
   componentDidMount() {
+
+    // Para hacer auto-fetch
     if (this.props.item === null) {
       console.log('run');
       this.props.searchFromQuery(location.pathname.split('/')[2]);
     }
   }
 
-  // TODO: Componentizar y reestructurar la maqueta.
 
   render() {
     return this.props.item ? (
       <>
         <Breadcrumb />
         <div className={styles.Product}>
-          {console.log('rendered')}
           <div className="WhiteBoard ">
             <div className={styles.Product_container}>
               <div className={styles.Product_detail}>
