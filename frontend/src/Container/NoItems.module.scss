@@ -1,0 +1,13 @@
+.noitems_container {
+  display: flex;
+  justify-content: center;
+  padding-top: 52px;
+}
+.NoItems {
+      padding: var(--pad);
+      font-family: var(--MELIL);
+
+      ul{
+            padding: var(--pad);
+      }
+}

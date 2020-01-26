@@ -42,7 +42,7 @@ class Results extends Component {
   render() {
     return (
      <>
-      <Breadcrumb />
+      {/* <Breadcrumb /> */}
       <section className={styles.Results_container}>
         <div className="WhiteBoard">
           <ol className={styles.Results_stackResults}>

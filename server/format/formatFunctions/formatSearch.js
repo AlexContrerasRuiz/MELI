@@ -1,9 +1,17 @@
 const BASE = require('../baseSearch');
 
 const FormatSearch = response => {
-
   // Se clona el objeto base sin ser puntero.
   let toFormat = JSON.parse(JSON.stringify(BASE));
+
+  console.log('====================================');
+  console.log();
+  console.log('====================================');
+
+  if (response.results.length === 0) {
+    toFormat.items = [];
+    return toFormat;
+  }
 
   // Se construye el objeto item
   response.results.map(item => {
@@ -39,9 +47,9 @@ const FormatSearch = response => {
     response.filters[0].values[0].path_from_root.map(cat => {
       toFormat.categories.push(cat);
     });
-  }else {
+  } else {
     response.available_filters[0].values.map((cat, i) => {
-      if(i > 3) {
+      if (i > 3) {
         return;
       }
       toFormat.categories.push(cat);

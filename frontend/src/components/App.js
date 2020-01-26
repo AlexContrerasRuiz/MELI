@@ -11,6 +11,7 @@ import SearchBar from './Searchbar/SearchBar';
 import Results from './Results/Results';
 import Product from './Product/Product';
 import Home from './Home/Home';
+import NoItems from '../Container/NoItems'
 
 const API = 'http://localhost:666/api';
 
@@ -20,7 +21,7 @@ class App extends Component {
   state = {
     searchValue: '',
     searchedValue: '',
-    searchItems: null,
+    searchItems: [],
     selectedItem: null,
     categories: []
   };
@@ -60,6 +61,15 @@ class App extends Component {
           },
           () => {
             if (this.props.history.location.search.split('=')[1] === query) {
+              return;
+            }
+
+            console.log(this.state)
+            if(this.state.searchItems.length === 0) {
+              this.props.history.push({
+                pathname: `/item`,
+                search: `search=${this.state.searchValue}`
+              });
               return;
             }
             this.props.history.push({
@@ -132,6 +142,9 @@ class App extends Component {
                     item={this.state.selectedItem}
                     searchFromQuery={this.goToProductHandler}
                   />
+                </Route>
+                <Route exact path="/item/">
+                  <NoItems/>
                 </Route>
               </Switch>
             </main>
