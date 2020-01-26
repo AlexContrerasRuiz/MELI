@@ -1,15 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import {
-  Route,
-  withRouter
-} from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 
 // Styles
 import './style.scss';
 
-// Layout
-import Main from '../Layouts/Main';
 
 // Components
 import SearchBar from './Searchbar/SearchBar';
@@ -40,10 +35,13 @@ class App extends Component {
   goToResultHandler = value => {
     let query;
 
+    // Si vieene de una query por barra de busqueda
     if (value) {
       this.setState({ searchedValue: value });
       query = value;
     } else {
+
+      // Si es por auto-fetch toma el valor de la url.
       query = this.props.history.location.search.split('=')[1];
     }
 
@@ -74,13 +72,17 @@ class App extends Component {
       .catch();
   };
 
-  goToProductHandler = (id) => {
+  goToProductHandler = id => {
     this.setState({ selectedItem: id }, () => {
       axios
         .get(`${API}/items/${id}`)
         .then(response => {
           this.setState(
-            { selectedItem: response.data.item, searchValue: '', categories: response.data.categories },
+            {
+              selectedItem: response.data.item,
+              searchValue: '',
+              categories: response.data.categories
+            },
             () => {
               if (location.pathname.split('/')[2] === id) {
                 return;
@@ -114,23 +116,25 @@ class App extends Component {
               getValue={this.searchValueHandler}
               goTo={this.goToResultHandler}
             />
-            <Main>
-              <Route exact path="/">
-                <Home reset={this.resetStateHome} />
-              </Route>
-              <Route exact path={`/items`}>
-                <Results
-                  items={this.state.searchItems}
-                  searchFromQuery={this.goToResultHandler}
-                />
-              </Route>
-              <Route exact path="/items/:id">
-                <Product
-                  item={this.state.selectedItem}
-                  searchFromQuery={this.goToProductHandler}
-                />
-              </Route>
-            </Main>
+            <main>
+              <Switch>
+                <Route exact path="/">
+                  <Home reset={this.resetStateHome} />
+                </Route>
+                <Route exact path={`/items`}>
+                  <Results
+                    items={this.state.searchItems}
+                    searchFromQuery={this.goToResultHandler}
+                  />
+                </Route>
+                <Route exact path="/items/:id">
+                  <Product
+                    item={this.state.selectedItem}
+                    searchFromQuery={this.goToProductHandler}
+                  />
+                </Route>
+              </Switch>
+            </main>
           </Route>
         </div>
       </CtxProvider>
